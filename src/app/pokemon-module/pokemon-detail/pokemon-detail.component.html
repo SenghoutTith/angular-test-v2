@@ -1,0 +1,19 @@
+<ng-template *ngIf="details; then notEmpty; else empty"></ng-template>
+
+<ng-template #notEmpty>
+    <div class="grid grid-cols-6 p-5 gap-2 hover:bg-gray-300">
+        <p>{{ details.id }}</p>
+        <p>{{ details.name }}</p>
+        <p [ngClass]="details.isCool ? 'bg-violet-500 uppercase text-white text-center' : ''">{{ details.isCool }}</p>
+        <p [ngClass]="details.isStrong ? 'bg-red-500 uppercase  text-white text-center' : ''">{{ details.isStrong }}</p>
+        <button (click)="removePokemon()" class="bg-red-700 px-2 py-1 text-white" type="button">Remove Pokemon</button>
+        <button class=" hover:font-semibold" [routerLink]="['/pokemon', details.id]" type="button">View detail</button>
+    </div>
+</ng-template>
+
+<ng-template #empty>
+    <span class="text-center">Opps.. Pokemon is Empty!</span>
+</ng-template>
+
+
+

@@ -1,0 +1,151 @@
+
+<div class="w-full grid grid-cols-4 gap-5 p-5">
+    
+    <!-- show product -->
+    <div [ngClass]="isAddProductClick ? 'col-span-3' : 'col-span-4 '" class="flex flex-col gap-5">
+        <div class="flex justify-between border-b border-black py-3">
+            <h1 id="title" class="text-2xl italic">Pokemon</h1>
+            <button type="button" (click)="changeColor()">Change Color</button>
+            <!-- <p-button (click)="showDialog()" label="Add Product" class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded"/> -->
+            <button (click)="handleAddProductClick()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded"> {{isAddProductClick ? 'Close' : 'Add Pokemon'}} </button>
+        </div>
+
+        <p-toast life="1000"/>
+        <div class="grid grid-cols-3 gap-3 text-white">
+            <div *ngFor="let pokemon of pokemonLists;">
+                <div class="bg-slate-500 p-2 rounded-md">
+                    <h1 class="text-3xl italic">Pokemon: {{pokemon.id}}</h1>
+                    <p>{{pokemon.name}}</p>
+                    <p>Cool: {{pokemon.isCool}}</p>
+                    <p>Strong: {{pokemon.isStrong}}</p>
+                    <p>Type: {{pokemon.type}}</p>
+                    <div class="flex justify-between">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add to Cart</button>
+                        <button (click)="handleEdit(pokemon)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
+                        <button (click)="deleteConfirmation(pokemon.id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- add form -->
+    <div [ngClass]="isAddProductClick ? 'col-span-1 flex text-sm flex-col border border-black  py-5 rounded-md h-fit' : 'hidden'">
+        <span class="text-center capitalize pb-4 italic underline underline-offset-1">add new pokemon</span>
+        <form [formGroup]="pokemonForm" (ngSubmit)="handleSubmit()" class="flex flex-col gap-4 w-1/2 mx-auto">
+
+            <div class="flex justify-evenly gap-2">
+                <span class=" font-light text-xs">Name</span>
+                <input [ngClass]="{' outline-red-500' : pokemonForm.controls.name.errors?.required && pokemonForm.controls.name.touched }" formControlName="name" name="name" type="text" class="outline outline-orange-200 rounded-md pl-2 placeholder:text-sm focus:outline-green-500">
+            </div>
+
+            <span *ngIf="pokemonForm.controls.name.touched">
+                <span *ngIf="pokemonForm.controls.name.errors.required" class="text-red-500">Name is required</span>
+            </span>
+
+            <div class="flex justify-evenly gap-2 items-center">
+                <span class=" font-light text-xs">Cool</span>
+                <select [ngClass]="{'border-red-500' : pokemonForm.controls.isCool.errors?.required && pokemonForm.controls.isCool.touched }" class="border border-orange-200 w-full rounded-md py-1" name="isCool" formControlName="isCool">
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select>
+            </div>
+
+            <span *ngIf="pokemonForm.controls.isCool.touched">
+                <span *ngIf="pokemonForm.controls.isCool.errors.required" class="text-red-500">Cool is required</span>
+            </span>
+
+            <div class="flex justify-evenly gap-2 items-center">
+                <span class=" font-light text-xs">Strong</span>
+                <select [ngClass]="{'border-red-500' : pokemonForm.controls.isStrong.errors?.required && pokemonForm.controls.isStrong.touched }" class="border border-orange-200 w-full rounded-md py-1" name="isStrong" formControlName="isStrong">
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select>
+            </div>
+
+            <span *ngIf="pokemonForm.controls.isStrong.touched">
+                <span *ngIf="pokemonForm.controls.isStrong.errors.required" class="text-red-500">Strong is required</span>
+            </span>
+
+            <div class="flex justify-evenly gap-2">
+                <span class=" font-light text-xs">Type</span>
+                <input [ngClass]="{' outline-red-500' : pokemonForm.controls.type.errors?.required && pokemonForm.controls.type.touched }" formControlName="type" name="type" type="text" placeholder="Type" class="outline outline-orange-200 rounded-md pl-2 placeholder:text-sm focus:outline-green-500">
+            </div>
+
+            <span *ngIf="pokemonForm.controls.type.touched">
+                <span *ngIf="pokemonForm.controls.type.errors.required" class="text-red-500">Type is required</span>
+            </span>
+
+            <button type="reset">Reset</button>
+            <button class=" file:outline px-4 py-2 bg-blue-500 hover:bg-blue-500 text-white rounded-md" type="submit">Create Now</button>
+        </form>
+
+        <div class="p-4 flex justify-center items-center flex-col border border-black m-4">
+            
+            <input (change)="uploadFile($event)" type="file" >
+
+        </div>
+        
+    </div>
+    
+    <!-- edit form -->
+    <ng-template #show>
+        <form [formGroup]="pokemonForm">
+            <p-dialog header="Edit Product" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+                <span class="p-text-secondary block mb-5">edit product.</span>
+                <div class="flex align-items-center gap-3 mb-3">
+                    <label for="Name" class="font-semibold w-6rem">Name</label>
+                    <input formControlName="name" pInputText id="Name" class="flex-auto" autocomplete="off" />
+                </div>
+    
+                <div class="flex align-items-center gap-3 mb-3">
+                    <label for="Cool" class="font-semibold w-6rem">Cool</label>
+                    <input formControlName="isCool" pInputText id="Cool" class="flex-auto" autocomplete="off" />
+                </div>
+    
+                <div class="flex align-items-center gap-3 mb-3">
+                    <label for="isCool" class="font-semibold w-6rem">Strong</label>
+                    <input formControlName="isStrong" pInputText id="isStrong" class="flex-auto" autocomplete="off" />
+                </div>
+    
+                <div class="flex align-items-center gap-3 mb-3">
+                    <label for="Type" class="font-semibold w-6rem">Type</label>
+                    <input formControlName="type" pInputText id="Type" class="flex-auto" autocomplete="off" />
+                </div>
+    
+                <div class="flex justify-content-end gap-2">
+                    <p-button class="bg-red-500 text-white px-3 py-1" label="Cancel" severity="secondary" (click)="visible = false" />
+                    <p-button class="bg-green-500 text-white px-3 py-1" label="Save" (click)="onConfirm()" />
+                </div>
+            </p-dialog>
+        </form>
+    </ng-template>
+
+    
+    <div class=" col-span-full">
+        <p-paginator
+        (onPageChange)="onPageChange($event)" 
+        [rows]="rows" 
+        [totalRecords]="pokemonListLength" 
+        [rowsPerPageOptions]="[5, 10, 20]" />
+    </div>
+<!-- 
+    <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [first]="first"
+    [rows]="rows"
+    [totalRecords]="pokemonLists.length"
+    [showCurrentPageReport]="true"
+    [showPageLinks]="false"
+    [showJumpToPageDropdown]="false"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" /> -->
+    
+
+    <!-- <ng-template #hidden></ng-template> -->
+    
+    
+
+    
+</div>
+

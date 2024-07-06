@@ -1,0 +1,55 @@
+
+<div class="flex w-full justify-end">
+  <button (click)="back()" class="mr-5 bg-slate-400 hover:bg-slate-300 px-5 py-3 mt-5  rounded-md duration-200" type="button">Back</button>
+</div>
+<div class="p-10 max-w-full border border-black mx-5 grid grid-cols-2 gap-5 mt-10">
+  <div>
+    <form (ngSubmit)="searchById()" #form="ngForm" class="flex flex-col gap-2 ">
+      <label class="font-semibold" for="search">Search Pokemon</label>
+      <input id="search" type="number" [(ngModel)]="searchId" name="searchId" placeholder="search by id, default(1)" class="outline-blue-500  border border-blue-700 w-1/2 px-2 py-3 rounded-md">
+      <button class=" w-fit px-2 py-1 bg-blue-500 hover:bg-blue-500/50 text-white rounded-md" type="submit">Search</button>
+    </form>
+  </div>
+
+  <div>
+    <h1 class="font-semibold">Form Pokemon:</h1>
+    <form #form="ngForm">
+        <input class="outline-blue-500  border border-blue-700 w-1/2 px-2 py-3 rounded-md" type="text" [(ngModel)]="pokemon.name" name="name">
+    </form>
+
+    <ng-container *ngIf="errorMessage; then error; else notError;"></ng-container>
+    <ng-template #error>
+      <p>{{ errorMessage }}</p>
+    </ng-template>
+
+    <ng-template #notError>
+      <p>Model: {{ pokemon | json }}</p>
+      <p>Form: {{ form.value | json }}</p>
+    </ng-template>
+    
+  </div>
+
+  <form class="flex flex-col" #form="ngForm">
+    <h1 class="font-semibold">Toggle Coolest of the Pokemon</h1>
+    <label for="cool">
+        <input type="radio" name="isCool" id="cool" [value]="false" [ngModel]="pokemon.isCool" >
+        Pokemon is Cool
+    </label>
+    <label for="notCool">
+      <input type="radio" name="isCool" id="notCool" value="false" [ngModel]="pokemon.isCool" >
+      Pokemon is not Cool
+    </label>
+  </form>
+
+  <form #form="ngForm">
+
+      
+      <select name="pokemonType" [(ngModel)]="pokemon.type">
+        Choose Pokemon Type
+          <option *ngFor="let type of pokemonType" [value]="type.value" [selected]="pokemon.type === type.value">{{type.value}}</option>
+      </select>
+      
+
+  </form>
+    
+</div>

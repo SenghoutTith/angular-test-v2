@@ -1,0 +1,95 @@
+{
+  "pokemon": [
+    {
+      "id": "1",
+      "name": "Bulbasaur",
+      "isCool": "false",
+      "isStrong": false,
+      "type": "Grass"
+    },
+    {
+      "id": "2",
+      "name": " Charmander dadadad",
+      "isCool": "false",
+      "isStrong": true,
+      "type": "Fire"
+    },
+    {
+      "id": "3",
+      "name": "Squirtle",
+      "isCool": true,
+      "isStrong": false,
+      "type": "Water"
+    },
+    {
+      "id": "4",
+      "name": "dembo cute x3",
+      "isCool": "true",
+      "isStrong": "true",
+      "type": "Grass"
+    },
+    {
+      "id": "5",
+      "name": "xdcfgvbhjnkm",
+      "isCool": false,
+      "isStrong": false,
+      "type": "cvbnm,l"
+    },
+    {
+      "id": "6",
+      "name": "test",
+      "isCool": "false",
+      "isStrong": "false",
+      "type": "nm"
+    },
+    {
+      "id": "7",
+      "name": "test",
+      "isCool": "false",
+      "isStrong": "false",
+      "type": "nm"
+    },
+    {
+      "id": "8",
+      "name": "test",
+      "isCool": "false",
+      "isStrong": "false",
+      "type": "nm"
+    },
+    {
+      "id": "9",
+      "name": "test",
+      "isCool": "false",
+      "isStrong": "false",
+      "type": "nm"
+    },
+    {
+      "id": "10",
+      "name": "test",
+      "isCool": "false",
+      "isStrong": "false",
+      "type": "nm"
+    },
+    {
+      "id": "11",
+      "name": "test",
+      "isCool": "false",
+      "isStrong": "false",
+      "type": "nm"
+    },
+    {
+      "id": "12",
+      "name": "test",
+      "isCool": "false",
+      "isStrong": "false",
+      "type": "nm"
+    },
+    {
+      "id": "13",
+      "name": "test",
+      "isCool": "false",
+      "isStrong": "false",
+      "type": "nm"
+    }
+  ]
+}

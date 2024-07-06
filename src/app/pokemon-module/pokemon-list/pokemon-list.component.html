@@ -1,0 +1,15 @@
+
+<div class="max-w-full m-5 border border-black">
+    <div class="grid grid-cols-6 border-b border-black p-5">
+        <h1>ID</h1>
+        <h1>Name</h1>
+        <h1>Cool</h1>
+        <h1>Strong</h1>
+        <h1>Action</h1>
+        <h1>View</h1>
+    </div>
+    <div>
+        <app-pokemon-detail *ngFor="let pokemon of pokemonList" [details]="pokemon" (remove)="remove($event)"></app-pokemon-detail>
+    </div>
+
+</div>

@@ -1,0 +1,11 @@
+a{
+    text-decoration: none;
+    color: rgb(55, 54, 54);
+    opacity: 0.8;
+}
+
+a.active{
+    color: red;
+    font-weight: bold;
+    text-decoration: underline;
+}
